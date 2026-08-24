@@ -5,28 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       body {
         background-color: black;
+        height: 100vh;
       }
-      .moon {
+      .star {
+        /*문서 기본 흐름에서 벗어나고 가장 가까운 
+        position 속성에 따라 left, topm right, bottom 등을 설정 가능*/
         position: absolute;
-        font-size: 50px;
+        font-size: 30px;
       }
-      .earth {
+      .planet {
+        width: 80px;
+        height: 80px;
+        background-color: yellow;
+        border-radius: 50%;
         position: absolute;
-        font-size: 100px;
+        top: 400px;
+        left: 200px;
+      }
+      .spaceship {
+        font-size: 30px;
+        /* fixed : 문서 기본 흐름에 벗어나며, 
+          뷰포트를 기준으로 top, left, right, bottom으로 이동이 가능하며,
+          스크롤을 해도 고정이 된다.
+        */
+        position: fixed;
+        top: 50px;
+        right: 50px;
+        /* 값이 클 수록 제일 위로 올라오게 된다. */
+        z-index: 1000;
       }
     </style>
   </head>
   <body>
-    <div class="moon" style="top: 50px; left: 340px">🌑</div>
-    <div class="moon" style="top: 150px; left: 500px">🌒</div>
-    <div class="moon" style="top: 350px; left: 600px">🌓</div>
-    <div class="moon" style="top: 550px; left: 500px">🌔</div>
-    <div class="moon" style="top: 650px; left: 340px">🌕</div>
-    <div class="moon" style="top: 550px; left: 150px">🌖</div>
-    <div class="moon" style="top: 350px; left: 50px">🌗</div>
-    <div class="moon" style="top: 150px; left: 150px">🌘</div>
-    <div class="earth" style="top: 300px; left: 300px">🌍</div>
+    <div class="star" style="top: 50px; left: 100px">🌟</div>
+    <div class="star" style="top: 150px; left: 300px">🌟</div>
+    <div class="star" style="top: 300px; left: 450px">🌟</div>
+    <div class="star" style="top: 1000px; left: 150px">🌟</div>
+    <div class="planet"></div>
+    <div class="spaceship">🚀</div>
   </body>
 </html>
