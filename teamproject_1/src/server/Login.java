@@ -42,7 +42,9 @@ public class Login implements HttpHandler {
         System.out.println("로그인 : " + requestBody);
 
         // form 데이터
-        Map<String, String> formData = parseFormData(requestBody);
+        String[] data = requestBody.split("&");
+        String id = data[0].split("=")[1];
+        String pw = data[1].split("=")[1];
 
         // html에서 설정한 값 읽기
         // 아이디와 비밀번호 가져오기
