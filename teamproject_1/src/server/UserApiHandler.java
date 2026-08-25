@@ -44,13 +44,6 @@ public class UserApiHandler implements HttpHandler {
         userList.add(user);
     }
 
-    private static synchronized int addUsers(Users user) {
-        user.setNumber(nextNumber); // 최소 1 <- 쏙 들어감
-        nextNumber++;
-        userList.add(user);
-        return user.getNumber();
-    }
-
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         try{
