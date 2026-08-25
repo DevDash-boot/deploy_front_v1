@@ -14,12 +14,34 @@ public class UserApiHandler implements HttpHandler {
     // 실제로는 DB에 저장하나, 현재는 리스트로 대신한다.
     // 서버를 껏다 켜면 내용이 사라지기 때문에 초기화 블록이 있으면 좋다.
     private static final List<Users> userList = new ArrayList<Users>();
+    public static List<Users> getUserList() {
+        return userList;
+    }
+
+    // 아이디 중복 확인
+    public static boolean existsId(String id) {
+        for (Users user : userList) {
+            if (user.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // 들어오는 순서대로 부여할 번호
     private static int nextNumber = 1;
 
     static {
-        addUsers(new Users("홍길동","1111","1111", "a@naver.com"));
-        addUsers(new Users("김철수", "2222", "2222","b@naver.com"));
+        addUsers(new Users("홍길동", "1111", "1111", "a@naver.com"));
+        addUsers(new Users("김철수", "2222", "2222", "b@naver.com"));
+    }
+
+    // 회원 가입용
+    public static synchronized void addUser(Users user) {
+        user.setNumber(nextNumber);
+        nextNumber++;
+
+        userList.add(user);
     }
 
     private static synchronized int addUsers(Users user) {
