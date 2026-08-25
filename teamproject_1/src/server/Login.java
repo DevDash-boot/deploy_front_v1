@@ -41,16 +41,11 @@ public class Login implements HttpHandler {
         String requestBody = SimpleHttpServer.readRequestBody(exchange);
         System.out.println("로그인 : " + requestBody);
 
-        // form 데이터
+        // 아이디와 비밀번호 가져오기
         String[] data = requestBody.split("&");
         String id = data[0].split("=")[1];
         String pw = data[1].split("=")[1];
-
-        // html에서 설정한 값 읽기
-        // 아이디와 비밀번호 가져오기
-        String id = formData.get("id");
-        String pw = formData.get("pw");
-
+        
         // 검증
         if (id == null || pw == null|| id.isBlank() || pw.isBlank()) {
             SimpleHttpServer.sendResponse(exchange,400,SimpleHttpServer.TYPE_TEXT,"아이디와 비밀번호를 입력해주세요.");
