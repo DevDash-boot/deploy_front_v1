@@ -66,17 +66,18 @@ public class SignUp implements HttpHandler {
 
         // 아이디 중복 검사
         if(UserApiHandler.existsId(id)){
-            SimpleHttpServer.sendResponse(exchange, 409, SimpleHttpServer.TYPE_TEXT, "이미 존재하는 아이디입니다.");
+            SimpleHttpServer.sendResponse(exchange, 401, SimpleHttpServer.TYPE_TEXT, "이미 존재하는 아이디입니다.");
             return;
         }
-
+        
         // 리스트에 정보 저장
+        Users user = new Users(name, id, pw, email);
         UserApiHandler.addUser(user);
         System.out.println("회원가입 완료" + user);
 
         // 회원가입 완료하면 로그인 페이지로 이동하기
         exchange.getResponseHeaders().set("Location", "/api/login");
-        exchange.sendResponseHeaders(300, -1);
+        exchange.sendResponseHeaders(302, -1);
         exchange.close();
     }
 }
