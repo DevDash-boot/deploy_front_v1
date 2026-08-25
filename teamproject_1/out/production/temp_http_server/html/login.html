@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>로그인</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: lightgray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            border-radius: 20px;
+            background-color: white;
+            width: 400px;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .main {
+            border-bottom: 1px solid lightgray;
+            border-top: 1px solid lightgray;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .btn > .id {
+            background-color: lightskyblue;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .btn > .id:hover {
+            background-color: rgba(135, 206, 250, 0.349);
+        }
+
+        .btn > .pw {
+            background-color: rgb(252, 162, 89);
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .btn > .pw:hover {
+            background-color: rgba(252, 162, 89, 0.342);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form action="/api/login" method="POST">
+        <h2 style="margin: 10px">로그인</h2>
+        <div class="main">
+            <div class="item">
+                <div>아이디</div>
+                <input type="id" placeholder="아이디" maxlength="30" required/>
+            </div>
+            <div class="item">
+                <div>비밀번호</div>
+                <input type="password" placeholder="비밀번호" maxlength="30" required/>
+            </div>
+        </div>
+        <div class="btn">
+            <button class="id" id="login" type="submit">로그인</button>
+            <button class="pw" onclick="location.href = 'signup.html'">회원가입</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

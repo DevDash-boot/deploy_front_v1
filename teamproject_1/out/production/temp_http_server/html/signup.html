@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>회원가입</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: lightgray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            border-radius: 20px;
+            background-color: white;
+            width: 400px;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .main {
+            border-bottom: 1px solid lightgray;
+            border-top: 1px solid lightgray;
+            margin: 20px;
+        }
+
+        .item {
+            margin: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        button {
+            cursor: pointer;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #a546e5;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #a546e570;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form action="/api/signup" method="POST">
+        <h2>회원가입</h2>
+        <div class="main">
+            <div class="item">
+                <div class="text">이름</div>
+                <input type="text" name="name" placeholder="이름" maxlength="30" required/>
+            </div>
+            <div class="item">
+                <div class="text">아이디</div>
+                <input type="text" name="id" placeholder="아이디" maxlength="30" required/>
+            </div>
+            <div class="item">
+                <div class="text">비밀번호</div>
+                <input type="password" name="pw" placeholder="비밀번호" maxlength="30" required/>
+            </div>
+            <div class="item">
+                <div class="text">이메일</div>
+                <input type="text" name="email" placeholder="이메일" maxlength="30" required/>
+            </div>
+        </div>
+        <button id="sign_up" type="submit">회원가입</button>
+    </form>
+</div>
+</body>
+</html>
