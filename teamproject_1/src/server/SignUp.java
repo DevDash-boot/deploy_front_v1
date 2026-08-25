@@ -47,14 +47,12 @@ public class SignUp implements HttpHandler {
         String requestBody = SimpleHttpServer.readRequestBody(exchange);
         System.out.println("회원가입 요청 : " + requestBody);
 
-        // form 데이터
-        Map<String, String> formData = parseFormData(requestBody);
-
-        // html에서 설정한 값 읽기
-        String name = formData.get("name");
-        String id = formData.get("id");
-        String pw = formData.get("pw");
-        String email = formData.get("email");
+        // 이름, 아이디, 비밀번호, 이메일 가져오기
+        String[] data = requestBody.split("&");
+        String name = data[0].split("=")[1];
+        String id = data[1].split("=")[1];
+        String pw = data[2].split("=")[1];
+        String email = data[3].split("=")[1];
 
         // 검증
         if (name == null || id == null || pw == null || email == null
