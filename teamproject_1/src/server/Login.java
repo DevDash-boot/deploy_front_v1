@@ -52,10 +52,15 @@ public class Login implements HttpHandler {
             return;
         }
 
-        // 아이디 중복 검사
-        if(UserApiHandler.existsId(id)){
-            SimpleHttpServer.sendResponse(exchange, 409, SimpleHttpServer.TYPE_TEXT, "이미 존재하는 아이디입니다.");
-            return;
+        // 로그인할 회원
+        Users loginUser = null;
+
+        // 회원 목록에서 아이디와 비밀번호 비교
+        for (Users user : UserApiHandler.getUserList()) {
+            if (user.getId().equals(id) && user.getPw().equals(pw)) {
+                loginUser = user;
+                break;
+            }
         }
 
         // 로그인 성공 시
@@ -69,7 +74,7 @@ public class Login implements HttpHandler {
 
         // 로그인 성공하면 8080으로 이동
         exchange.getResponseHeaders().set("Location", "/");
-        exchange.sendResponseHeaders(300, -1);
+        exchange.sendResponseHeaders(302, -1);
         exchange.close();
     }
 }
