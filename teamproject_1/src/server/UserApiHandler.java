@@ -14,6 +14,8 @@ public class UserApiHandler implements HttpHandler {
     // 실제로는 DB에 저장하나, 현재는 리스트로 대신한다.
     // 서버를 껏다 켜면 내용이 사라지기 때문에 초기화 블록이 있으면 좋다.
     private static final List<Users> userList = new ArrayList<Users>();
+
+    // 회원 목록 가져오기
     public static List<Users> getUserList() {
         return userList;
     }
@@ -40,8 +42,8 @@ public class UserApiHandler implements HttpHandler {
     public static synchronized void addUser(Users user) {
         user.setNumber(nextNumber);
         nextNumber++;
-
         userList.add(user);
+        return user.getNumber();
     }
 
     @Override
@@ -58,7 +60,6 @@ public class UserApiHandler implements HttpHandler {
                 SimpleHttpServer.sendResponse(exchange, 405,
                     SimpleHttpServer.TYPE_TEXT, "지원하지 않는 메서드 입니다");
         }
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -91,20 +92,29 @@ public class UserApiHandler implements HttpHandler {
         }
 
         // 3. 검증
-        if (user == null || user.getName() == null || user.getName().isBlank()) {
+        if (user == null || user.getName() == null || user.getName().isBlank()
+                || user.getId() == null || user.getId().isBlank()) {
             SimpleHttpServer.sendResponse(exchange, 400,
                     SimpleHttpServer.TYPE_TEXT , "name과 id는 반드시 있어야 합니다");
             return;
         }
 
+        // 아이디 중복 확인
+        if (existsId(user.getId())) {
+            SimpleHttpServer.sendResponse(exchange, 400, SimpleHttpServer.TYPE_TEXT, "이미 존재하는 아이디입니다");
+            return;
+        }
+
+
+        // 이메일이 없다면 빈자리 출
         if (user.getEmail() == null) {
             user.setEmail("");
         }
 
-        // 4. 저장 처리 number 값은 고정값이 아니라서 저장 결과를 다시 돌려 준다.
-        int newNumber = addUsers(user);
+        //저장 처리 number 값은 고정값이 아니라서 저장 결과를 다시 돌려 준다.
+        addUsers(user);
 
-        // 5. 등록 성공은 200 대신 201 Created 로 응답을 한다.
+        // 등록 성공은 200 대신 201 Created 로 응답을 한다.
         SimpleHttpServer.sendJson(exchange, 201, user);
 
     }
